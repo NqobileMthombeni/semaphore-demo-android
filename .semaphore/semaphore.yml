@@ -40,7 +40,7 @@ blocks:
         - name: Unit Tests
           commands:
             - ./gradlew testDebugUnitTest
-            - '[[ -f report.xml ]] && test-results publish report.xml'
+            - '[[ -f report.xml ]] && Unit tests publish report.xml'
       epilogue:
         always:
           commands:
@@ -50,7 +50,7 @@ after_pipeline:
     jobs:
       - name: Publishe tests
         commands:
-          - test-results gen-pipeline-report
+          - unit test-results gen-pipeline-report
 promotions:
   - name: Start Integration tests
     pipeline_file: integration-tests.yml
