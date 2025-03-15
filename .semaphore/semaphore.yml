@@ -40,10 +40,17 @@ blocks:
         - name: Unit Tests
           commands:
             - ./gradlew testDebugUnitTest
+            - '[[ -f report.xml ]] && test-results publish report.xml'
       epilogue:
         always:
           commands:
             - artifact push job --expire-in 2w --destination reports/ app/build/reports/
+after_pipeline:
+  task:
+    jobs:
+      - name: Publishe tests
+        commands:
+          - test-results gen-pipeline-report
 promotions:
   - name: Start Integration tests
     pipeline_file: integration-tests.yml
